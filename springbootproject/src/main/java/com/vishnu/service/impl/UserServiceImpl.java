@@ -3,9 +3,11 @@ package com.vishnu.service.impl;
 import com.vishnu.dao.UserDao;
 import com.vishnu.model.User;
 import com.vishnu.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/10/19 0019.
@@ -40,11 +42,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByName(String name) {
+        if (name==null || name==""){
+            return null;
+        }
+        return userDao.getUserByName(name);
+    }
+
+    @Override
     public boolean updateUser(User user) {
         if (user==null){
             return false;
         }
         userDao.updateUser(user);
         return true;
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return userDao.getAllUser();
     }
 }

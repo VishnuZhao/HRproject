@@ -2,32 +2,105 @@ package com.vishnu.controller;
 
 import com.vishnu.model.User;
 import com.vishnu.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/10/19 0019.
  */
 @Controller
 public class UserController {
-    @Resource
+    @Autowired
     private UserService userService;
-
-    @RequestMapping("/addUser")
-    public boolean addUser(User user){
-        boolean res=userService.saveUser(user);
-        if (res){
-            return true;
-        }else {
-            return false;
-        }
-    }
 
     @RequestMapping("/index")
     public String hello(Model model){
         return "index";
+    }
+
+    @RequestMapping("/toLogin")
+    public String login(){
+        return "login";
+    }
+
+    @RequestMapping("/toRegister")
+    public String register(){
+        return "register";
+    }
+
+    @RequestMapping("/toHomePage")
+    public String toHomePage(){
+        return "homePage";
+    }
+
+    @RequestMapping("/addUserServlet")
+    public String addUser(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        User user1=userService.getUserByName(request.getParameter("name"));
+        if(user1==null){
+            User user = new User(request.getParameter("name"),request.getParameter("pass"));
+            if (userService.saveUser(user)){
+                request.setAttribute("msg","注册成功");
+                return "login";
+            }else{
+                request.setAttribute("msg","注册失败");
+                //request.getRequestDispatcher("pages/register.jsp").forward(request,response);
+                return "register";
+            }
+        }else{
+            request.setAttribute("msg","注册失败,该用户名已经存在");
+            return "register";
+        }
+    }
+
+    @RequestMapping(value = "/loginServlet")
+    public String loginServlet(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+
+        if (request.getParameter("name").equals("888") & request.getParameter("pass").equals("888")) {
+            return "adminpage";
+        }
+        User user = new User(request.getParameter("name"), request.getParameter("pass"));
+        String log = request.getParameter("log");
+        if (userService.getUserByNameAndPass(user) != null) {
+                session.setAttribute("name", user.getU_name());
+                session.setAttribute("uid", userService.getUserByNameAndPass(user).getU_id());
+                session.setAttribute("user", userService.getUserByNameAndPass(user));
+                if ("on".equals(log)) {
+                    Cookie cookie = new Cookie("name", user.getU_name());
+                    cookie.setMaxAge(60 * 60 * 24 * 30);
+                    response.addCookie(cookie);
+                }
+            request.setAttribute("msg", "登陆成功");
+            return "homePage";
+        } else {
+            request.setAttribute("msg", "登陆失败");
+            return "login";
+        }
+    }
+    @RequestMapping("/autoLogin")
+    public String autoLogin (HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        Cookie[] cookies = request.getCookies();
+        List<User> users = userService.getAllUser();
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            String value = cookie.getValue();
+            for (User user : users) {
+                if (name.equals("name") && value.equals(user.getU_name())) {
+                    request.getSession().setAttribute("name", user.getU_name());
+                    request.getSession().setAttribute("uid", user.getU_id());
+                    request.getSession().setAttribute("user", user);
+                    return "homePage";
+                }
+            }
+        }
+        return "login";
     }
 }
