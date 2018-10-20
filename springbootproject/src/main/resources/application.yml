@@ -1,0 +1,19 @@
+server:
+  port: 8099
+
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:lohost:1521:XE
+    username: vishnu
+    password: root
+  mvc:
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.vishnu.model
+  configuration:
+    map-underscore-to-camel-case: true
