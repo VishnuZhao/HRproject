@@ -1,13 +1,14 @@
 package com.vishnu.controller;
 
+import com.vishnu.model.Resume;
 import com.vishnu.model.User;
+import com.vishnu.service.ResumeService;
 import com.vishnu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,9 +38,24 @@ public class UserController {
         return "register";
     }
 
+    @RequestMapping("/toUpdateUser")
+    public String toUpdateUser(){
+        return "updateUser";
+    }
+
     @RequestMapping("/toHomePage")
     public String toHomePage(){
         return "homePage";
+    }
+
+    @RequestMapping("/toAddResume")
+    public String toAddResume(){
+        return "addResume";
+    }
+
+    @RequestMapping("/showResume")
+    public String showResume(){
+        return "showResume";
     }
 
     @RequestMapping("/addUserServlet")
@@ -52,7 +68,6 @@ public class UserController {
                 return "login";
             }else{
                 request.setAttribute("msg","注册失败");
-                //request.getRequestDispatcher("pages/register.jsp").forward(request,response);
                 return "register";
             }
         }else{
@@ -103,4 +118,18 @@ public class UserController {
         }
         return "login";
     }
+    @RequestMapping("/updateUserServlet")
+    public String updateUser(HttpServletRequest request,HttpServletResponse response)throws Exception {
+        User user=new User(Integer.parseInt(request.getParameter("id")),request.getParameter("name"),request.getParameter("pass"));
+        boolean res=userService.updateUser(user);
+        User user1=userService.getUserById(Integer.parseInt(request.getParameter("id")));
+        if (res){
+            request.getSession().setAttribute("user",user1);
+            return "homePage";
+        }else{
+            return "updateUser";
+        }
+    }
+
+
 }

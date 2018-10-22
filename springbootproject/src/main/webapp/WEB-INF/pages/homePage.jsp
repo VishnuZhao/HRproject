@@ -18,13 +18,10 @@
 <div id="d1"><span>用户名：${sessionScope.name}-欢迎回到个人中心！</span><br/></div>
 
 <div id="d2">
-    <input type="button" value="添加简历" onclick="location='toAdduserdetail'">
+    <input type="button" value="添加简历" onclick="location='toAddResume'">
 </div>
 <div id="d3">
-    <input type="button" value="查看简历" onclick="location='showUserDetailServlet'">
-</div>
-<div id="d4">
-    <input type="button" value="注销账户" onclick="location='delUserServlet'">
+    <input type="button" value="查看简历" onclick="location='showResumeNameServlet'">
 </div>
 <div id="d5">
     <input type="button" value="修改信息" onclick="location='toUpdateUser'">

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.ResumeDao">
+    <insert id="saveResume" parameterType="com.vishnu.model.Resume">
+        INSERT INTO T_RESUME VALUES (RE_ID_SEQ.nextval,#{uname},#{sex},#{phone},#{education},#{school},#{major},
+        #{age},#{status},#{workyear},#{interoduction},#{uid},#{rename})
+    </insert>
+    <update id="updateResume" parameterType="com.vishnu.model.Resume">
+        UPDATE T_RESUME SET RE_NAME=#{uname},re_sex=#{sex},re_phone=#{phone},re_education=#{education},re_school=#{school},re_major=#{major},
+        re_age=#{age},re_status=#{status},re_workyear=#{workyear},re_introduction=#{interoduction},re_rename=#{rename}
+        where re_id=#{id}
+    </update>
+    <delete id="deleteResume" parameterType="integer">
+        DELETE FROM T_RESUME WHERE RE_ID=#{re_id}
+    </delete>
+    <select id="getResumeById" resultMap="Resume">
+        SELECT * FROM T_RESUME WHERE RE_ID=#{re_id}
+    </select>
+    <select id="getResumeByUid" resultMap="Resume">
+        SELECT * FROM T_RESUME WHERE RE_UID=#{uid}
+    </select>
+    <resultMap id="Resume" type="com.vishnu.model.Resume">
+        <id property="id" column="re_id"/>
+        <result property="uname" column="re_name"/>
+        <result property="sex" column="re_sex"/>
+        <result property="phone" column="re_phone"/>
+        <result property="education" column="re_education"/>
+        <result property="school" column="re_school"/>
+        <result property="major" column="re_major"/>
+        <result property="age" column="re_age"/>
+        <result property="status" column="re_status"/>
+        <result property="interoduction" column="re_introduction"/>
+        <result property="workyear" column="re_workyear"/>
+        <result property="uid" column="re_uid"/>
+        <result property="rename" column="re_rename"/>
+    </resultMap>
+</mapper>
