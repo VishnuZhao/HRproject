@@ -43,6 +43,11 @@
         <span><c:out value="${requestScope.msg}"/></span>
     </div>
 
+    <div id="d1">
+        <c:forEach items="${sessionScope.recruits}" var="temp">
+            <a href="showRecruit">${temp.name}</a>
+        </c:forEach>
+    </div>
     <div>
         <a href="index">点我返回欢迎页</a>
     </div>

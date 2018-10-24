@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.PositionDao">
+    <insert id="addPosition" parameterType="com.vishnu.model.Position">
+        insert into T_POSITION (POS_ID, POS_NAME, POS_DEP_ID) values (#{id},#{name},#{dep_id})
+    </insert>
+    <update id="updatePosition" parameterType="com.vishnu.model.Position">
+        update T_POSITION set POS_NAME = #{name},pos_dep_id=#{dep_id} where pos_id=#{id}
+    </update>
+    <delete id="deletePosition">
+        DELETE FROM T_POSITION WHERE POS_ID=#{pos_id}
+    </delete>
+    <select id="getPositionById" resultMap="Position">
+        SELECT * FROM T_POSITION WHERE POS_ID=#{pos_id}
+    </select>
+    <select id="getAllPosition" resultType="com.vishnu.model.Position">
+        SELECT * FROM T_POSITION
+    </select>
+    <resultMap id="Position" type="com.vishnu.model.Position">
+        <id property="id" column="pos_id"/>
+        <result property="name" column="pos_name"/>
+        <result property="dep_id" column="pos_dep_id"/>
+    </resultMap>
+</mapper>

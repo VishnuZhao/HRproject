@@ -1,5 +1,6 @@
 package com.vishnu.service;
 
+import com.vishnu.model.Recruit;
 import com.vishnu.model.Resume;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface ResumeService {
     boolean updateResume(Resume resume);
     Resume getResumeById(int re_id);
     List<Resume> getResumeByUid(int uid);
+
 }

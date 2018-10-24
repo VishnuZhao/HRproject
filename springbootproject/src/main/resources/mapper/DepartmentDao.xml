@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.DepartmentDao">
+    <insert id="addDepartment" parameterType="com.vishnu.model.Department">
+        insert into T_DEPARTMENT (DEP_ID, DEP_NAME) values (DEP_ID_SEQ.nextval,#{name})
+    </insert>
+    <update id="updateDepartment" parameterType="com.vishnu.model.Department">
+        update T_DEPARTMENT set DEP_NAME = #{name} where dep_id=#{id}
+    </update>
+    <delete id="deleteDepartment">
+        DELETE FROM T_DEPARTMENT WHERE DEP_ID=#{dep_id}
+    </delete>
+    <select id="getDepartmentById" resultMap="Department">
+        SELECT * FROM T_DEPARTMENT WHERE DEP_ID=#{dep_id}
+    </select>
+    <select id="getAllDepartment" resultMap="Department">
+        SELECT * FROM T_DEPARTMENT
+    </select>
+    <resultMap id="Department" type="com.vishnu.model.Department">
+        <id property="id" column="dep_id"/>
+        <result property="name" column="dep_name"/>
+    </resultMap>
+</mapper>

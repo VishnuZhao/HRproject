@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -168,6 +169,7 @@
         </ul>
         <ul class="h_top_r">
             <li class="header_login">
+                <a href="toHomePage">${sessionScope.msg}</a>
                 <a href="toRegister" id="a1">注册</a>
                 <a href="index" id="a2" hidden>${sessionScope.name}</a>
                 <a href="toLogin">登录</a>
@@ -181,6 +183,10 @@
         </ul>
     </div>
 </div>
-
+<div>
+    <c:forEach items="${sessionScope.recruits}" var="temp">
+        <c:out value="${temp.name}"/>
+    </c:forEach>
+</div>
 </body>
 </html>

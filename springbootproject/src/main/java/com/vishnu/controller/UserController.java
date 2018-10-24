@@ -1,7 +1,9 @@
 package com.vishnu.controller;
 
+import com.vishnu.model.Recruit;
 import com.vishnu.model.Resume;
 import com.vishnu.model.User;
+import com.vishnu.service.RecruitService;
 import com.vishnu.service.ResumeService;
 import com.vishnu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,14 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RecruitService recruitService;
 
     @RequestMapping("/index")
-    public String hello(Model model){
+    public String hello(Model model,HttpSession session){
+        List<Recruit> recruits = recruitService.getRecruitByPage(1,3);
+        System.out.println(recruits);
+        session.setAttribute("recruits",recruits);
         return "index";
     }
 
@@ -93,10 +100,10 @@ public class UserController {
                     cookie.setMaxAge(60 * 60 * 24 * 30);
                     response.addCookie(cookie);
                 }
-            request.setAttribute("msg", "登陆成功");
+            session.setAttribute("msg", user.getU_name()+"登陆成功");
             return "homePage";
         } else {
-            request.setAttribute("msg", "登陆失败");
+            session.setAttribute("msg", "null");
             return "login";
         }
     }
@@ -112,9 +119,11 @@ public class UserController {
                     request.getSession().setAttribute("name", user.getU_name());
                     request.getSession().setAttribute("uid", user.getU_id());
                     request.getSession().setAttribute("user", user);
+                    session.setAttribute("msg", user.getU_name()+"登陆成功");
                     return "homePage";
                 }
             }
+            session.setAttribute("msg", "null");
         }
         return "login";
     }

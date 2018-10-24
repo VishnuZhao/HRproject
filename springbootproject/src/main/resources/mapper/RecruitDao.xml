@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.RecruitDao">
+    <insert id="saveRecruit">
+        insert into T_RECRUIT (RC_ID, RC_DEPARTMENT_ID, RC_POSITION_ID, RC_REQUIREMENT, RC_TREATMENT, RC_ADDRESS, RC_EDUCATION, RC_NAME, RC_STATUS)
+        values (RC_ID_SEQ.nextval,#{department_id},#{position_id},#{requirement},#{treatment},#{address},#{education},#{name},#{status})
+    </insert>
+    <update id="updateRecruit">
+        update T_RECRUIT set RC_DEPARTMENT_ID = #{department_id},RC_POSITION_ID=#{position_id},RC_REQUIREMENT=#{requirement},RC_TREATMENT=#{treatment},RC_ADDRESS=#{address},RC_EDUCATION=#{education},RC_NAME=#{name},RC_STATUS=#{status}
+        where rc_id=#{id}
+    </update>
+    <delete id="deleteRecruit">
+        DELETE FROM T_RECRUIT WHERE RC_ID=#{rc_id}
+    </delete>
+    <select id="getRecruitById" resultMap="Recruit">
+        select * from T_RECRUIT WHERE RC_ID=#{rc_id}
+    </select>
+    <select id="getAllOnSaleRecruit" resultMap="Recruit">
+        select * from T_RECRUIT WHERE RC_STATUS=1
+    </select>
+    <select id="getRecruitByPage" resultMap="Recruit">
+        SELECT * FROM (SELECT t.*,rownum FROM T_RECRUIT t WHERE RC_STATUS=1)
+        WHERE rownum>(${0}-1)*${1} and rownum&lt;=${0}*${1}
+    </select>
+
+    <resultMap id="Recruit" type="com.vishnu.model.Recruit">
+        <id property="id" column="rc_id"/>
+        <result property="department_id" column="rc_department_id"/>
+        <result property="position_id" column="rc_position_id"/>
+        <result property="requirement" column="rc_requirement"/>
+        <result property="treatment" column="rc_treatment"/>
+        <result property="address" column="rc_address"/>
+        <result property="education" column="rc_education"/>
+        <result property="name" column="rc_name"/>
+        <result property="status" column="rc_status"/>
+    </resultMap>
+</mapper>
