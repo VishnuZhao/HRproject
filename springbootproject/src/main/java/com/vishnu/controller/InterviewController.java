@@ -1,10 +1,8 @@
 package com.vishnu.controller;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.vishnu.model.*;
-import com.vishnu.service.DeliveryService;
-import com.vishnu.service.InterviewService;
-import com.vishnu.service.MessageService;
-import com.vishnu.service.RecruitService;
+import com.vishnu.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +26,10 @@ public class InterviewController {
     private DeliveryService deliveryService;
     @Resource
     private RecruitService recruitService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private ResumeService resumeService;
 
     @RequestMapping("/toWriteInterviewMess")
     public String toWriteInterviewMess(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
@@ -34,7 +37,6 @@ public class InterviewController {
         int dvid=Integer.parseInt(request.getParameter("dvid"));
         Delivery delivery=deliveryService.getDeliveryById(dvid);
         Message message=new Message("您有一条面试邀请，请尽快处理",uid,0,2,0);
-        messageService.addMessage(message);
         session.setAttribute("message",message);
         session.setAttribute("delivery",delivery);
         return "writeInterviewMess";
@@ -48,16 +50,13 @@ public class InterviewController {
         date=date+" "+time;
         Message message= (Message) session.getAttribute("message");
         Delivery delivery= (Delivery) session.getAttribute("delivery");
-        Interview interview=new Interview(address,date,delivery.getRe_id(),delivery.getRc_id(),message.getId());
+        Interview interview=new Interview(address,date,delivery.getRe_id(),delivery.getRc_id(),0,0);
         boolean res=interviewService.addInterview(interview);
-        //Interview interview1=interviewService.getInterviewByMessId(message.getId());
         Interview interview1=interviewService.getInterviewByOther(interview);
 
         message.setIt_id(interview1.getId());
-        messageService.updateMessage(message);
+        messageService.addMessage(message);
         Message message1=messageService.getMessageByItid(interview1.getId());
-        System.out.println(message);
-        System.out.println(message1);
         interview1.setMess_id(message1.getId());
         interviewService.updateInterview(interview1);
         if (res) {
@@ -97,4 +96,60 @@ public class InterviewController {
         return "showInterview";
     }
 
+    @RequestMapping("/acceptInterview")
+    public String acceptInterview(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        User user= (User) session.getAttribute("user");
+        if (user==null){
+            return "login";
+        }
+        int itid=Integer.parseInt(request.getParameter("itid"));
+        Interview interview=interviewService.getInterviewById(itid);
+        interview.setStatus(1);//修改interview=1：已接受的面试邀请
+        interviewService.updateInterview(interview);
+        Message message=messageService.getMessageByItid(interview.getId());
+        message.setStatus(1);//修改message=1：已接受的面试邀请
+        messageService.updateMessage(message);
+        return "acceptInterviewSuccess";
+    }
+
+    @RequestMapping("/refuseInterview")
+    public String refuseInterview(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        User user= (User) session.getAttribute("user");
+        if (user==null){
+            return "login";
+        }
+        int itid=Integer.parseInt(request.getParameter("itid"));
+        Interview interview=interviewService.getInterviewById(itid);
+        interview.setStatus(2);//修改interview=2：已拒绝的面试邀请
+        interviewService.updateInterview(interview);
+        Message message=messageService.getMessageByItid(interview.getId());
+        message.setStatus(2);//修改message=2：已拒绝的面试邀请
+        messageService.updateMessage(message);
+        return toShowMessage(request, response, session);
+    }
+
+    @RequestMapping("/toAcceptInterview")
+    public String toAcceptInterview(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        /*User user= (User) session.getAttribute("user");
+        if (user==null){
+            return "login";
+        }*/
+        List<Message> messages=messageService.getMessageByAcceptInt();
+        if (messages==null){
+            return "adminPage";
+        }
+        List<User> users=new ArrayList<>();
+        List<Recruit> recruits=new ArrayList<>();
+        List<Resume> resumes=new ArrayList<>();
+        for (Message me:messages) {
+            users.add(userService.getUserById(me.getUid()));
+            recruits.add(recruitService.getRecruitById(interviewService.getInterviewById(me.getIt_id()).getRc_id()));
+            resumes.add(resumeService.getResumeById(interviewService.getInterviewById(me.getIt_id()).getRe_id()));
+        }
+        session.setAttribute("users",users);
+        session.setAttribute("recruits",recruits);
+        session.setAttribute("messages",messages);
+        session.setAttribute("resumes",resumes);
+        return "acceptInterview";
+    }
 }

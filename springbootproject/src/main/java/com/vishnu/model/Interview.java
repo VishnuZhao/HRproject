@@ -12,25 +12,28 @@ public class Interview implements Serializable {
     private int re_id;
     private int rc_id;
     private int mess_id;
+    private int status;
 
     public Interview() {
     }
 
-    public Interview(String address, String date, int re_id, int rc_id, int mess_id) {
+    public Interview(String address, String date, int re_id, int rc_id, int mess_id,int status) {
         this.address = address;
         this.date = date;
         this.re_id = re_id;
         this.rc_id = rc_id;
         this.mess_id = mess_id;
+        this.status=status;
     }
 
-    public Interview(int id, String address, String date, int re_id, int rc_id, int mess_id) {
+    public Interview(int id, String address, String date, int re_id, int rc_id, int mess_id,int status) {
         this.id = id;
         this.address = address;
         this.date = date;
         this.re_id = re_id;
         this.rc_id = rc_id;
         this.mess_id = mess_id;
+        this.status=status;
     }
 
     public int getId() {
@@ -81,6 +84,14 @@ public class Interview implements Serializable {
         this.mess_id = mess_id;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Interview{" +
@@ -90,6 +101,7 @@ public class Interview implements Serializable {
                 ", re_id=" + re_id +
                 ", rc_id=" + rc_id +
                 ", mess_id=" + mess_id +
+                ", status=" + status +
                 '}';
     }
 }

@@ -11,4 +11,5 @@ public interface InterviewService {
     Interview getInterviewByMessId(int messid);
     Interview getInterviewByOther(Interview interview);
     boolean updateInterview(Interview interview);
+
 }

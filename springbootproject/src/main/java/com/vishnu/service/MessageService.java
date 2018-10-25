@@ -14,4 +14,5 @@ public interface MessageService {
     List<Message> getMessageByUid(int uid);
     List<Message> getMessageByEmp_id(int emp_id);
     Message getMessageByItid(int itid);
+    List<Message> getMessageByAcceptInt();
 }

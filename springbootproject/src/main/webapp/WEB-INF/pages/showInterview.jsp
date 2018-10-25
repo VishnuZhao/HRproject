@@ -31,8 +31,8 @@
             <td>${sessionScope.interview.address}</td>
         </tr>
         <tr>
-            <td><a href="">接受面试</a> </td>
-            <td><a href="">拒绝面试</a></td>
+            <td><a href="acceptInterview?itid=${sessionScope.interview.id}">接受面试</a> </td>
+            <td><a href="refuseInterview?itid=${sessionScope.interview.id}">拒绝面试</a></td>
         </tr>
     </table>
 <div>

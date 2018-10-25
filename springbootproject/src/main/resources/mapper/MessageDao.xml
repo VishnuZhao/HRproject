@@ -13,13 +13,16 @@
         select * from T_MESSAGE WHERE ME_ID=#{me_id}
     </select>
     <select id="getMessageByUid" resultMap="Message">
-        select * from T_MESSAGE WHERE ME_UID=#{uid}
+        select * from T_MESSAGE WHERE ME_UID=#{uid} and me_status=0
     </select>
     <select id="getMessageByEmpId" resultMap="Message">
-        select * from T_MESSAGE WHERE ME_EMP_ID=#{emp_id}
+        select * from T_MESSAGE WHERE ME_EMP_ID=#{emp_id} and me_status=0
     </select>
     <select id="getMessageByItid" resultMap="Message">
         select * from T_MESSAGE WHERE ME_IT_ID=#{itid}
+    </select>
+    <select id="getMessageByAcceptInt" resultMap="Message">
+        select * from T_MESSAGE WHERE ME_STATUS=1 AND ME_STYLE=2
     </select>
     <resultMap id="Message" type="com.vishnu.model.Message">
         <id property="id" column="me_id"/>

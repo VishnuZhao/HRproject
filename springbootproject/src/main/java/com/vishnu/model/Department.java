@@ -8,17 +8,20 @@ import java.io.Serializable;
 public class Department implements Serializable {
     private int id;
     private String name;
+    private String time;
 
     public Department() {
     }
 
-    public Department(String name) {
+    public Department(String name,String time) {
         this.name = name;
+        this.time=time;
     }
 
-    public Department(int id, String name) {
+    public Department(int id, String name,String time) {
         this.id = id;
         this.name = name;
+        this.time=time;
     }
 
     public int getId() {
@@ -37,11 +40,20 @@ public class Department implements Serializable {
         this.name = name;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", time='" + time + '\'' +
                 '}';
     }
 }

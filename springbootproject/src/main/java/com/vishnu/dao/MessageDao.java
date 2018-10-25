@@ -14,4 +14,5 @@ public interface MessageDao {
     List<Message> getMessageByUid(int uid);
     List<Message> getMessageByEmpId(int emp_id);
     Message getMessageByItid(int itid);
+    List<Message> getMessageByAcceptInt();
 }

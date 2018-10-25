@@ -64,4 +64,9 @@ public class MessageServiceImpl implements MessageService {
         }
         return messageDao.getMessageByItid(itid);
     }
+
+    @Override
+    public List<Message> getMessageByAcceptInt() {
+        return messageDao.getMessageByAcceptInt();
+    }
 }

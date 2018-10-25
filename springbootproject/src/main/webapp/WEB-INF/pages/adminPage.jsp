@@ -21,5 +21,8 @@
     <input type="button" value="查看应聘信息" onclick="location='toShowDelivery'">
 </div>
 
+<div id="d3">
+    <input type="button" value="查看已接受的面试" onclick="location='toAcceptInterview'">
+</div>
 </body>
 </html>
