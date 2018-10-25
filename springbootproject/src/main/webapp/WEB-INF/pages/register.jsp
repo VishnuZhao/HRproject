@@ -81,7 +81,7 @@
            function checkname() {
                $.ajax({type:"get",
                    url:"checkNameServlet",
-                   data:{username:$("input[name='name']").val()},
+                   date:{username:$("input[name='name']").val()},
                    success:function (obj) {
                        $("#sp1").text(obj);
                    }})

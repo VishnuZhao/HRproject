@@ -29,8 +29,7 @@ public class UserController {
 
     @RequestMapping("/index")
     public String hello(Model model,HttpSession session){
-        List<Recruit> recruits = recruitService.getRecruitByPage(1,3);
-        System.out.println(recruits);
+        List<Recruit> recruits = recruitService.getRecruitByPage(1);
         session.setAttribute("recruits",recruits);
         return "index";
     }
@@ -87,7 +86,7 @@ public class UserController {
     public String loginServlet(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 
         if (request.getParameter("name").equals("888") & request.getParameter("pass").equals("888")) {
-            return "adminpage";
+            return "adminPage";
         }
         User user = new User(request.getParameter("name"), request.getParameter("pass"));
         String log = request.getParameter("log");

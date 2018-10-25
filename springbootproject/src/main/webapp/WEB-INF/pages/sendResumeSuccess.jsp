@@ -31,20 +31,11 @@
 </head>
 <body id="by">
     <div class="c1">
-        <legend>用户登陆</legend>
-        <form action="loginServlet" method="post">
-            用户名：<input name="name" required/><br>
-            密&nbsp;&nbsp;&nbsp;码：<input name="pass" type="password" required/><br>
-            <input type="checkbox" name="log">记住用户名密码<br/>
-            <input type="submit" value="确认登陆">&nbsp;
-            <input type="reset" value="重新输入">
-        </form>
-        <input type="button" value="自动登陆" onclick="location='autoLogin'">
-        <span><c:out value="${requestScope.msg}"/></span>
+        <h3>恭喜，投递成功</h3>
     </div>
 
     <div>
-        <a href="index">点我返回欢迎页</a>
+        <a href="index">返回</a>
     </div>
 </body>
 </html>

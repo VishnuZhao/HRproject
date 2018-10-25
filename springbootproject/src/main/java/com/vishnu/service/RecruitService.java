@@ -13,5 +13,5 @@ public interface RecruitService {
     boolean updateRecruit(Recruit recruit);
     Recruit getRecruitById(int rc_id);
     List<Recruit> getAllOnSaleRecruit();
-    List<Recruit> getRecruitByPage(int pageNo,int pageSize);
+    List<Recruit> getRecruitByPage(int pageNo);
 }

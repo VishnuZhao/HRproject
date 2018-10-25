@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.DeliveryDao">
+    <insert id="addDelivery">
+        insert into T_DELIVERY (DV_ID, DV_RECRUIT_ID, DV_RESUME_ID, DV_STATUS)
+        values (DV_ID_SEQ.nextval,#{rc_id},#{re_id},#{status})
+    </insert>
+    <update id="updateDelivery">
+        update T_DELIVERY set DV_STATUS = #{status} where dv_id=#{id}
+    </update>
+    <delete id="deleteDelivery">
+        DELETE FROM T_DELIVERY WHERE DV_ID=#{dv_id}
+    </delete>
+    <select id="getAllDelivery" resultMap="Delivery">
+        SELECT * FROM T_DELIVERY WHERE DV_STATUS=0
+    </select>
+    <select id="getDeliveryById" resultMap="Delivery">
+        SELECT * FROM T_DELIVERY WHERE DV_ID=#{id}
+    </select>
+    <resultMap id="Delivery" type="com.vishnu.model.Delivery">
+        <id property="id" column="dv_id"/>
+        <result property="rc_id" column="dv_recruit_id"/>
+        <result property="re_id" column="dv_resume_id"/>
+        <result property="status" column="dv_status"/>
+    </resultMap>
+</mapper>

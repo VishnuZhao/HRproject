@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2018/10/23 0023.
  */
-public class Recruit implements Serializable {
+public class Recruit implements Serializable {//职位招聘表
     private int id;
     private int department_id;
     private int position_id;
@@ -14,7 +14,7 @@ public class Recruit implements Serializable {
     private String address;
     private String education;
     private String name;
-    private int status;
+    private int status;//0:未上架，1：已上架
 
     public Recruit() {
     }

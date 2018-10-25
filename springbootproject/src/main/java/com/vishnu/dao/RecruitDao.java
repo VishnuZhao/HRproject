@@ -2,6 +2,7 @@ package com.vishnu.dao;
 
 import com.vishnu.model.Recruit;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,5 +14,5 @@ public interface RecruitDao {
     void updateRecruit(Recruit recruit);
     Recruit getRecruitById(int rc_id);
     List<Recruit> getAllOnSaleRecruit();
-    List<Recruit> getRecruitByPage(int pageNo, int pageSize);
+    List<Recruit> getRecruitByPage(int pageNo);
 }

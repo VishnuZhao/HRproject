@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2018/10/20 0020.
  */
-public class Resume implements Serializable {
+public class Resume implements Serializable {//简历表
     private int id;
     private String uname;
     private String sex;
@@ -14,7 +14,7 @@ public class Resume implements Serializable {
     private String school;
     private String major;
     private int age;
-    private int status;
+    private int status;//0：未公开，1：公开
     private int workyear;
     private String interoduction;
     private int uid;

@@ -20,8 +20,6 @@ import java.util.List;
 @Controller
 public class ResumeController {
     @Autowired
-    private UserService userService;
-    @Autowired
     private ResumeService resumeService;
 
     @RequestMapping("/addResumeServlet")
@@ -74,6 +72,17 @@ public class ResumeController {
         }
         session.setAttribute("resume",resume);
         return "showResume";
+    }
+
+    @RequestMapping("/toShowResumeByAdmin")
+    public String toShowResumeByAdmin(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+        int re_id =Integer.parseInt(request.getParameter("re_id"));
+        Resume resume=resumeService.getResumeById(re_id);
+        if (resume==null){
+            return "adminPage";
+        }
+        session.setAttribute("resume",resume);
+        return "showResumeByAdmin";
     }
 
     @RequestMapping("/toUpdateResume")

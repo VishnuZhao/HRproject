@@ -56,10 +56,11 @@ public class RecruitServiceImpl implements RecruitService{
     }
 
     @Override
-    public List<Recruit> getRecruitByPage(int pageNo, int pageSize) {
-        if (pageNo<=0 || pageSize<=0){
+    public List<Recruit> getRecruitByPage(int pageNo) {
+        if (pageNo<=0){
             return null;
         }
-        return recruitDao.getRecruitByPage(pageNo, pageSize);
+
+        return recruitDao.getRecruitByPage(pageNo);
     }
 }

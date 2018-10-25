@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.MessageDao">
+    <insert id="addMessage">
+        insert into T_MESSAGE (ME_ID,ME_MESSAGE, ME_UID, ME_EMP_ID, ME_STATUS, ME_STYLE,ME_IT_ID)
+        values (ME_ID_SEQ.nextval,#{message},#{uid},#{emp_id},#{status},#{style},#{it_id})
+    </insert>
+    <update id="updateMessage">
+        update T_MESSAGE set ME_UID=#{uid},me_emp_id=#{emp_id},me_status=#{status},me_style=#{style},me_it_id=#{it_id}
+        where ME_ID=#{id}
+    </update>
+    <select id="getMessageById" resultMap="Message">
+        select * from T_MESSAGE WHERE ME_ID=#{me_id}
+    </select>
+    <select id="getMessageByUid" resultMap="Message">
+        select * from T_MESSAGE WHERE ME_UID=#{uid}
+    </select>
+    <select id="getMessageByEmpId" resultMap="Message">
+        select * from T_MESSAGE WHERE ME_EMP_ID=#{emp_id}
+    </select>
+    <select id="getMessageByItid" resultMap="Message">
+        select * from T_MESSAGE WHERE ME_IT_ID=#{itid}
+    </select>
+    <resultMap id="Message" type="com.vishnu.model.Message">
+        <id property="id" column="me_id"/>
+        <result property="message" column="me_message"/>
+        <result property="uid" column="me_uid"/>
+        <result property="emp_id" column="me_emp_id"/>
+        <result property="status" column="me_status"/>
+        <result property="style" column="me_style"/>
+        <result property="it_id" column="me_it_id"/>
+    </resultMap>
+</mapper>
