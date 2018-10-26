@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.vishnu.dao.DepartmentDao">
     <insert id="addDepartment" parameterType="com.vishnu.model.Department">
-        insert into T_DEPARTMENT (DEP_ID, DEP_NAME) values (DEP_ID_SEQ.nextval,#{name})
+        insert into T_DEPARTMENT (DEP_ID, DEP_NAME, DEP_TIME) values (DEP_ID_SEQ.nextval,#{name},#{time})
     </insert>
     <update id="updateDepartment" parameterType="com.vishnu.model.Department">
-        update T_DEPARTMENT set DEP_NAME = #{name} where dep_id=#{id}
+        update T_DEPARTMENT set DEP_NAME = #{name},dep_time=#{time} where dep_id=#{id}
     </update>
     <delete id="deleteDepartment">
         DELETE FROM T_DEPARTMENT WHERE DEP_ID=#{dep_id}
@@ -16,8 +16,12 @@
     <select id="getAllDepartment" resultMap="Department">
         SELECT * FROM T_DEPARTMENT
     </select>
+    <select id="getDepartmentByName" resultMap="Department">
+        SELECT * FROM T_DEPARTMENT WHERE DEP_NAME=#{name}
+    </select>
     <resultMap id="Department" type="com.vishnu.model.Department">
         <id property="id" column="dep_id"/>
         <result property="name" column="dep_name"/>
+        <result property="time" column="dep_time"/>
     </resultMap>
 </mapper>

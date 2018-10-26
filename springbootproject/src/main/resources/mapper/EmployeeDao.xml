@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.EmployeeDao">
+    <insert id="addEmployee">
+        insert into T_EMPLOYEE (EMP_ID, EMP_NAME, EMP_PASS, EMP_SEX, EMP_PHONE, EMP_EDUCATION, EMP_SCHOOL, EMP_MAJOR, EMP_DEP_ID, EMP_PO_ID, EMP_SALARY, EMP_STATUS)
+        values (EMP_ID_SEQ.nextval,#{name},#{pass},#{sex},#{phone},#{education},#{school},#{major},#{dep_id},#{po_id},#{salary},#{status})
+    </insert>
+    <update id="updateEmployeeByEmp">
+        update T_EMPLOYEE set EMP_PASS=#{pass},emp_phone=#{phone}
+        where emp_id=#{id}
+    </update>
+    <update id="updateEmployeeByAdmin">
+        update T_EMPLOYEE set EMP_DEP_ID=#{dep_id},emp_po_id=#{po_id},emp_salary=#{salary},emp_status=#{status}
+        where emp_id=#{id}
+    </update>
+    <delete id="deleteEmployee">
+        DELETE FROM T_EMPLOYEE WHERE EMP_ID=#{empid}
+    </delete>
+    <select id="getEmployeeById" resultMap="Employee">
+        select * from T_EMPLOYEE WHERE EMP_ID=#{empid} and emp_status=0
+    </select>
+    <select id="getAllEmployee"  resultMap="Employee">
+        select * from T_EMPLOYEE WHERE EMP_STATUS=0
+    </select>
+    <resultMap id="Employee" type="com.vishnu.model.Employee">
+        <id property="id" column="emp_id"/>
+        <result property="name" column="emp_name"/>
+        <result property="pass" column="emp_pass"/>
+        <result property="sex" column="emp_sex"/>
+        <result property="phone" column="emp_phone"/>
+        <result property="education" column="emp_education"/>
+        <result property="school" column="emp_school"/>
+        <result property="major" column="emp_major"/>
+        <result property="dep_id" column="emp_dep_id"/>
+        <result property="po_id" column="emp_po_id"/>
+        <result property="salary" column="emp_salary"/>
+        <result property="status" column="emp_status"/>
+    </resultMap>
+</mapper>

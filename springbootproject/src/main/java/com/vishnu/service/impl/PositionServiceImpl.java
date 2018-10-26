@@ -6,7 +6,9 @@ import com.vishnu.service.PositionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/10/23 0023.
@@ -51,7 +53,26 @@ public class PositionServiceImpl implements PositionService{
     }
 
     @Override
+    public List<Position> getPositionByDepid(int depid) {
+        if (depid<10000){
+            return null;
+        }
+        return positionDao.getPositionByDepid(depid);
+    }
+
+    @Override
     public List<Position> getAllPosition() {
         return positionDao.getAllPosition();
+    }
+
+    @Override
+    public Position getPositionByNameAndDepid(String name,int depId) {
+        if (name==null || depId<10000){
+            return null;
+        }
+        HashMap<String,Object> map=new HashMap<>();
+        map.put("name",name);
+        map.put("depId",depId);
+        return positionDao.getPositionByNameAndDepid(map);
     }
 }

@@ -14,14 +14,15 @@ public class Employee implements Serializable {
     private String education;
     private String school;
     private String major;
+    private int dep_id;
     private int po_id;
     private double salary;
-    private int status;
+    private int status;//0:在职，1：离职
 
     public Employee() {
     }
 
-    public Employee(String name, String pass, String sex, String phone, String education, String school, String major, int po_id, double salary, int status) {
+    public Employee(String name, String pass, String sex, String phone, String education, String school, String major, int dep_id, int po_id, double salary, int status) {
         this.name = name;
         this.pass = pass;
         this.sex = sex;
@@ -29,12 +30,13 @@ public class Employee implements Serializable {
         this.education = education;
         this.school = school;
         this.major = major;
+        this.dep_id = dep_id;
         this.po_id = po_id;
         this.salary = salary;
         this.status = status;
     }
 
-    public Employee(int id, String name, String pass, String sex, String phone, String education, String school, String major, int po_id, double salary, int status) {
+    public Employee(int id, String name, String pass, String sex, String phone, String education, String school, String major, int dep_id, int po_id, double salary, int status) {
         this.id = id;
         this.name = name;
         this.pass = pass;
@@ -43,6 +45,7 @@ public class Employee implements Serializable {
         this.education = education;
         this.school = school;
         this.major = major;
+        this.dep_id = dep_id;
         this.po_id = po_id;
         this.salary = salary;
         this.status = status;
@@ -136,6 +139,14 @@ public class Employee implements Serializable {
         this.sex = sex;
     }
 
+    public int getDep_id() {
+        return dep_id;
+    }
+
+    public void setDep_id(int dep_id) {
+        this.dep_id = dep_id;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -147,6 +158,7 @@ public class Employee implements Serializable {
                 ", education='" + education + '\'' +
                 ", school='" + school + '\'' +
                 ", major='" + major + '\'' +
+                ", dep_id=" + dep_id +
                 ", po_id=" + po_id +
                 ", salary=" + salary +
                 ", status=" + status +

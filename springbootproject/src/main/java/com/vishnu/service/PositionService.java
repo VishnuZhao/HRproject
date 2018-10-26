@@ -12,5 +12,7 @@ public interface PositionService {
     boolean deletePosition(int pos_id);
     boolean updatePosition(Position position);
     Position getPositionById(int pos_id);
+    List<Position> getPositionByDepid(int depid);
     List<Position> getAllPosition();
+    Position getPositionByNameAndDepid(String name,int depId);
 }

@@ -24,5 +24,9 @@
 <div id="d3">
     <input type="button" value="查看已接受的面试" onclick="location='toAcceptInterview'">
 </div>
+
+<div id="d4">
+    <input type="button" value="部门职位管理" onclick="location='toManageDepAndPos'">
+</div>
 </body>
 </html>

@@ -13,4 +13,5 @@ public interface DepartmentService {
     boolean updateDepartment(Department department);
     Department getDepartmentById(int dep_id);
     List<Department> getAllDepartment();
+    Department getDepartmentByName(String name);
 }

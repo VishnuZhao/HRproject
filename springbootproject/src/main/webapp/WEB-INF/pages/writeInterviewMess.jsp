@@ -37,7 +37,7 @@
         </table>
     </form>
 <div>
-    <a href="toHomePage">点我返回主页</a>
+    <a href="toAdminPage">点我返回主页</a>
 </div>
 </body>
 </html>

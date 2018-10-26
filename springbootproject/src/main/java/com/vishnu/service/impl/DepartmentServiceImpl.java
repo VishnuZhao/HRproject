@@ -54,4 +54,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Department> getAllDepartment() {
         return departmentDao.getAllDepartment();
     }
+
+    @Override
+    public Department getDepartmentByName(String name) {
+        if (name==null){
+            return null;
+        }
+        return departmentDao.getDepartmentByName(name);
+    }
 }
