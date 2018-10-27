@@ -6,6 +6,7 @@ import com.vishnu.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -53,5 +54,40 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getAllEmployee() {
         return employeeDao.getAllEmployee();
+    }
+
+    @Override
+    public List<Employee> getEmployeeByPosId(int posId) {
+        if (posId<10000){
+            return null;
+        }
+        return employeeDao.getEmployeeByPosId(posId);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByDepId(int depId) {
+        if (depId<10000){
+            return null;
+        }
+        return employeeDao.getEmployeeByDepId(depId);
+    }
+
+    @Override
+    public Employee getEmployeeByNameAndUname(String name, String uname) {
+        if (name==null || uname==null){
+            return null;
+        }
+        HashMap<String,String> map=new HashMap<>();
+        map.put("name",name);
+        map.put("uname",uname);
+        return employeeDao.getEmployeeByNameAndUname(map);
+    }
+
+    @Override
+    public List<Employee> getEmployeeByPosIdCorr(int posId) {
+        if (posId<10000){
+            return null;
+        }
+        return employeeDao.getEmployeeByPosIdCorr(posId);
     }
 }

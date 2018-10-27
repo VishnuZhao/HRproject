@@ -66,7 +66,7 @@
         <br/>
         <span hidden id="sp1" name="posId"></span>
         <br/>
-        <span>${sessionScope.}</span>
+        <span>${requestScope.deletePosition}</span>
         <br/>
         <input type="submit" value="确认提交">
         <input type="reset" value="重新填写">
@@ -74,7 +74,7 @@
 </div>
 
 <div>
-    <a href="toHomePage">点我返回主页</a>
+    <a href="toManagePos">返回</a>
 </div>
 </body>
 </html>

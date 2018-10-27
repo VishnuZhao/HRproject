@@ -14,7 +14,7 @@
 <html>
 <head>
     <base href="<%=basePath%>"/>
-    <title>添加地址</title>
+    <title>转正</title>
     <style>
         #by{
             background-color: lightpink;
@@ -38,9 +38,28 @@
                     url:"getPositionByDepName?name="+name,
                     success:function (obj) {
                         $("#position").empty();
+                        var tx="<option>"+"请选择"+"</option>";
+                        $("#position").append(tx);
                         for (var i=0;i<obj.length;i++){
                             var posName="<option>"+obj[i].name+"</option>";
                             $("#position").append(posName);
+                        }
+                    }
+                })
+            })
+            $("#position").change(function () {
+                var posName=$("#position").val();
+                var name=$("#department").val();
+                $.ajax({
+                    type:"get",
+                    url:"getEmpByPosNameCorr?name="+name+"&posName="+posName,
+                    success:function (obj) {
+                        $("#employee").empty();
+                        var tx="<option>"+"请选择"+"</option>";
+                        $("#employee").append(tx);
+                        for (var i=0;i<obj.length;i++){
+                            var empName="<option>"+obj[i].uname+":"+obj[i].name+"</option>";
+                            $("#employee").append(empName);
                         }
                     }
                 })
@@ -50,7 +69,7 @@
 </head>
 <body id="by">
 <div id="d1">
-    <form action="addEmpServlet" method="post">
+    <form action="correctEmp" method="post">
         请选择部门
         <select id="department" name="depName" required>
             <option>--请选择部门--</option>
@@ -64,18 +83,19 @@
             <option>--请选择职位--</option>
         </select>
         <br/>
-        请输入基本薪资
+        待转正员工
+        <select id="employee" name="empInf" required>
+            <option>--请选择员工(冒号后为员工账号)--</option>
+        </select>
         <br/>
-        <input type="number" min="1" name="salary" required>
-        <span hidden id="sp1" name="posId"></span>
+        <span>${requestScope.correctEmp}</span>
         <br/>
-        <input type="submit" value="确认提交">
-        <input type="reset" value="重新填写">
+        <input type="submit" value="点击转正">
     </form>
 </div>
 
 <div>
-    <a href="toManageDepAndPos">点我返回主页</a>
+    <a href="toManageEmp">返回</a>
 </div>
 </body>
 </html>

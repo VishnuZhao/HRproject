@@ -2,6 +2,7 @@ package com.vishnu.dao;
 
 import com.vishnu.model.Employee;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,4 +15,8 @@ public interface EmployeeDao {
     void deleteEmployee(int empid);
     Employee getEmployeeById(int empid);
     List<Employee> getAllEmployee();
+    List<Employee> getEmployeeByPosId(int posId);
+    List<Employee> getEmployeeByDepId(int depId);
+    Employee getEmployeeByNameAndUname(HashMap hashMap);
+    List<Employee> getEmployeeByPosIdCorr(int posId);
 }

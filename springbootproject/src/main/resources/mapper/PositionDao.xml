@@ -3,7 +3,7 @@
 <mapper namespace="com.vishnu.dao.PositionDao">
     <insert id="addPosition" parameterType="com.vishnu.model.Position">
         insert into T_POSITION (POS_ID, POS_NAME, POS_DEP_ID,POS_TIME)
-        values (#{id},#{name},#{dep_id},#{time})
+        values (POS_ID_SEQ.nextval,#{name},#{dep_id},#{time})
     </insert>
     <update id="updatePosition" parameterType="com.vishnu.model.Position">
         update T_POSITION set POS_NAME = #{name},pos_dep_id=#{dep_id},pos_time=#{time}

@@ -44,11 +44,11 @@
         <input type="submit" value="确认提交">
         <input type="reset" value="重新填写">
     </form>
-    <span>${sessionScope.deleteDepFail}</span>
+    <span><c:out value="${requestScope.deleteDep}"/></span>
 </div>
 
 <div>
-    <a href="toHomePage">点我返回主页</a>
+    <a href="toManageDep">点我返回主页</a>
 </div>
 </body>
 </html>

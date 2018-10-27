@@ -35,7 +35,7 @@
     </div>
 
     <div>
-        <a href="toManageDepAndPos">返回</a>
+        <a href="toManageDep">返回</a>
     </div>
 </body>
 </html>

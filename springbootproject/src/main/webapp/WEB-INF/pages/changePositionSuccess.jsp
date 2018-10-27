@@ -2,8 +2,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2018/9/6 0006
-  Time: 19:41
+  Date: 2018/9/5 0005
+  Time: 23:12
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,37 +14,28 @@
 <html>
 <head>
     <base href="<%=basePath%>"/>
-    <title>添加部门</title>
+    <title>login</title>
     <style>
         #by{
             background-color: lightpink;
         }
-        #d1{
+        .c1{
             position:absolute;
             top: 200px;
             left: 500px;
-            border: solid;
+            border: dotted;
             border-width: 2px;
             border-color: deeppink;
         }
     </style>
-
 </head>
 <body id="by">
-<div id="d1">
-    <form action="addDepartmentServlet" method="post">
-        部门名称：<input name="name" required>
-        <br/>
-        <span id="sp1"></span>
-        <br/>
-        <input type="submit" value="确认">
-        <input type="reset" value="重置">
-    </form>
-    <span><c:out value="${requestScope.addDepartment}"></c:out></span>
+    <div class="c1">
+        <h3>恭喜，职位调动成功</h3>
+    </div>
 
-</div>
-<div>
-    <a href="toManageDep">返回</a>
-</div>
+    <div>
+        <a href="toChangePosition">返回</a>
+    </div>
 </body>
 </html>

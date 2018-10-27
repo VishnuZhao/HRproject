@@ -14,7 +14,7 @@
 <html>
 <head>
     <base href="<%=basePath%>"/>
-    <title>添加部门</title>
+    <title>查看部门</title>
     <style>
         #by{
             background-color: lightpink;
@@ -32,19 +32,25 @@
 </head>
 <body id="by">
 <div id="d1">
-    <form action="addDepartmentServlet" method="post">
-        部门名称：<input name="name" required>
+    <form action="updateDepServlet" method="post">
+        查看所有部门：
+        <select id="department" name="depName" required>
+            <option>--请选择部门--</option>
+            <c:forEach items="${sessionScope.departments}" var="temp">
+                <option><c:out value="${temp.name}"/></option>
+            </c:forEach>
+        </select>
         <br/>
-        <span id="sp1"></span>
+        修改部门名称：
+        <input name="updateName" required>
         <br/>
-        <input type="submit" value="确认">
-        <input type="reset" value="重置">
+        <input type="submit" value="点击修改">
     </form>
-    <span><c:out value="${requestScope.addDepartment}"></c:out></span>
-
+    <span><c:out value="${requestScope.updateDepName}"/></span>
 </div>
+
 <div>
-    <a href="toManageDep">返回</a>
+    <a href="toManageDep">点我返回主页</a>
 </div>
 </body>
 </html>

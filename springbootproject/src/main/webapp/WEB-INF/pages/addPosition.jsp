@@ -33,7 +33,7 @@
 <body id="by">
 <div id="d1">
     <form action="addPositionServlet" method="post">
-        添加到部门:
+        请选择部门:
         <select id="department" name="depName" required>
             <option>--请选择部门--</option>
             <c:forEach items="${sessionScope.departments}" var="temp">
@@ -41,16 +41,16 @@
             </c:forEach>
         </select>
         <br/>
-        请输入职位名称:
-        <input name="posName" required>
+        输入职位名:
+        <input name="posName" required><br/>
         <input type="submit" value="确认提交">
         <input type="reset" value="重新填写">
     </form>
-    <span>${sessionScope.addPositionFail}</span>
+    <span>${requestScope.addPosition}</span>
 </div>
 
 <div>
-    <a href="toHomePage">点我返回主页</a>
+    <a href="toManagePos">点我返回主页</a>
 </div>
 </body>
 </html>

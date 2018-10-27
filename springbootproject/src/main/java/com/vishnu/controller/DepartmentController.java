@@ -24,6 +24,11 @@ public class DepartmentController {
     @Resource
     private PositionService positionService;
 
+    @RequestMapping("/toManageDep")
+    public String toManageDepAndPos(HttpServletRequest request,String name) throws Exception {
+        return "manageDep";
+    }
+
     @RequestMapping("/toAddDepartment")
     public String toAddDepartment(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         return "addDepartment";
@@ -32,6 +37,11 @@ public class DepartmentController {
     @RequestMapping("/addDepartmentServlet")
     public String addDepartmentServlet(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         String name=request.getParameter("name");
+        Department department1=departmentService.getDepartmentByName(name);
+        if (department1!=null){
+            request.setAttribute("addDepartment","添加失败，该部门已存在");
+            return "addDepartment";
+        }
         Date date=new Date();
         String time=date.toString();
         System.out.println(time);
@@ -53,66 +63,33 @@ public class DepartmentController {
         Department department=departmentService.getDepartmentByName(depName);
         List<Position> positions=positionService.getPositionByDepid(department.getId());
         if (positions==null || positions.size()==0){
-            session.setAttribute("deleteDepFail",null);
+            request.setAttribute("deleteDep","删除成功");
             boolean res=departmentService.deleteDepartment(department.getId());
             if (res){
-                return "deleteDepSuccess";
+                return toDeleteDepartment(request, response, session);
             }else {
                 return "toDeleteDepartment";
             }
         }
-        session.setAttribute("deleteDepFail","抱歉，该部门下有职位，请删除职位后重新操作");
+        request.setAttribute("deleteDep","抱歉，该部门下有职位，请删除职位后重新操作");
         return "deleteDepartment";
     }
 
-    @RequestMapping("/toAddPosition")
-    public String toAddPosition(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+    @RequestMapping("/toShowDep")
+    public String toShowDep(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
         List<Department> departments=departmentService.getAllDepartment();
         session.setAttribute("departments",departments);
-        return "addPosition";
+        return "showDep";
     }
 
-    @RequestMapping("/addPositionServlet")
-    public String addPositionServlet(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-        String depName = request.getParameter("depName");
-        String posName=request.getParameter("posName");
-        Department department = departmentService.getDepartmentByName(depName);
-        List<Position> positions=positionService.getPositionByDepid(department.getId());
-        if (positions==null || positions.size()==0){
-            Date date=new Date();
-            String time=date.toString();
-            Position position=new Position(posName,department.getId(),time);
-            positionService.addPosition(position);
-            return toAddPosition(request, response, session);
-        }else {
-            for (Position p:positions) {
-                if (p.getName().equals(posName)){
-                    session.setAttribute("addPositionFail","职位添加失败，该部门已有该职位");
-                    return "addPosition";
-                }
-            }
-            Date date=new Date();
-            String time=date.toString();
-            Position position=new Position(posName,department.getId(),time);
-            positionService.addPosition(position);
-            return toAddPosition(request, response, session);
-        }
+    @RequestMapping("/updateDepServlet")
+    public String updateDepServlet(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        String depName =request.getParameter("depName");
+        Department department=departmentService.getDepartmentByName(depName);
+        String updateName =request.getParameter("updateName");
+        department.setName(updateName);
+        departmentService.updateDepartment(department);
+        request.setAttribute("updateDepName","修改成功");
+        return toShowDep(request, response, session);
     }
-
-    @RequestMapping("/toDeletePosition")
-    public String toDeletePosition(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-        List<Department> departments=departmentService.getAllDepartment();
-        session.setAttribute("departments",departments);
-        return "deletePosition";
-    }
-
-    @RequestMapping("/deletePositionServlet")
-    public String deletePositionServlet(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-        String depName = request.getParameter("depName");
-        String posName=request.getParameter("posName");
-        Position position=positionService.getPositionByNameAndDepid(posName,departmentService.getDepartmentByName(depName).getId());
-        positionService.deletePosition(position.getId());
-        return "deletePosition";
-    }
-
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vishnu.dao.TrainingDao">
+    <insert id="addTraining">
+        insert into T_TRAINING (TA_ID, TA_NAME, TA_TEXT, TA_ADDRESS, TA_STARTDATE, TA_ENDDATE)
+        values (TA_ID_SEQ.nextval,#{name},#{text},#{address},#{startDate},#{endDate})
+    </insert>
+    <delete id="deleteTraining">
+        DELETE FROM T_TRAINING WHERE TA_ID=#{taid}
+    </delete>
+    <select id="getTrainingById" resultMap="Training">
+        select * from T_TRAINING WHERE TA_ID=#{taid}
+    </select>
+    <resultMap id="Training" type="com.vishnu.model.Training">
+        <id property="id" column="ta_id"/>
+        <result property="name" column="ta_name"/>
+        <result property="text" column="ta_text"/>
+        <result property="address" column="ta_address"/>
+        <result property="startDate" column="ta_startdate"/>
+        <result property="endDate" column="ta_enddate"/>
+    </resultMap>
+</mapper>

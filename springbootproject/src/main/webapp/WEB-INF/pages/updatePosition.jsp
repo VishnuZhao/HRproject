@@ -14,7 +14,7 @@
 <html>
 <head>
     <base href="<%=basePath%>"/>
-    <title>添加地址</title>
+    <title>查看（更新）职位</title>
     <style>
         #by{
             background-color: lightpink;
@@ -50,7 +50,7 @@
 </head>
 <body id="by">
 <div id="d1">
-    <form action="addEmpServlet" method="post">
+    <form action="updatePositionServlet" method="post">
         请选择部门
         <select id="department" name="depName" required>
             <option>--请选择部门--</option>
@@ -64,18 +64,19 @@
             <option>--请选择职位--</option>
         </select>
         <br/>
-        请输入基本薪资
-        <br/>
-        <input type="number" min="1" name="salary" required>
         <span hidden id="sp1" name="posId"></span>
         <br/>
-        <input type="submit" value="确认提交">
-        <input type="reset" value="重新填写">
+        修改部门名称：
+        <input name="updateName" required>
+        <br/>
+        <span>${requestScope.updatePosName}</span>
+        <br/>
+        <input type="submit" value="确认修改">
     </form>
 </div>
 
 <div>
-    <a href="toManageDepAndPos">点我返回主页</a>
+    <a href="toManagePos">返回</a>
 </div>
 </body>
 </html>
